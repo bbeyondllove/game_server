@@ -1,0 +1,209 @@
+server:
+  debug: true
+  local_host: 0.0.0.0
+  local_port: 5000
+  max_conn_num: 100000
+  http_timeout: 10
+  max_msg_len: 65535 #单条消息最大字节数
+  http_port: 5001
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  dbName: game
+  username: root
+  password: "12233"
+  parameter: charset=utf8mb4
+  tablePrefix: t_
+  connects: 20
+  goroutines: 20 #协程池数量
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: "123336"
+  db_name: 0
+  pool_size: 32
+
+base:
+  user_host: http://127.0.0.1
+  user_port: 9466
+  security_key: "12345678"
+  mobile_code_url: "/api/open/user/sendSmsCode"
+  email_code_url: "/api/open/user/sendEmailCode"
+  mobile_register_url: "/api/open/user/registerByMobile"
+  email_register_url: "/api/open/user/registerByEmail"
+  mobile_login_url: "/api/open/user/loginByMobile"
+  email_login_url: "/api/open/user/loginByEmail"
+  get_userinfo_url: "/api/open/user/info"
+  mobile_reset_password_url: "/api/open/user/resetPwdByMobile"
+  email_reset_password_url: "/api/open/user/resetPwdByEmail"
+  get_invite_users_url: "/api/open/user/inviteeList"
+  get_grab_comrades_url: "/api/user/getOriginalInviteUserList"
+  get_member_sys_url: "/api/open/vip/configs"
+  get_user_level_url: "/api/open/vip/info"
+  grab_comrade_url: "/api/user/updateInviter"
+  update_user_url: "/api/open/user/updateInfo"
+  refresh_token_url: "/api/open/user/refreshToken"
+  user_binding_inviter: "/api/open/user/bindingInviter"
+  user_invite_incomelist: "/api/open/user/inviteIncomeList"
+  user_invitation: "/api/open/user/invitation"
+  get_exchange_list_max: 500
+  user_save_kyc: "/api/open/user/saveKyc"
+
+pay:
+   token_pay_url: "https://127.0.0.1/h5/earnCommission/earnCommission.html"
+
+# 本地生活配置.
+life:
+  http_ip: http://127.0.0.1
+  http_port: 17700
+  debug: true
+  http_url: https://127.0.0.1/life/api/
+  # 请求本地生活接口超时时间
+  time_out: 60
+  # 请求本地生活接口签名密钥
+  secret: f610a72b-0e0c-42de-aa42-62e69efc2c76
+
+cdt:
+  # cdt_usd_rate_default cdt对换美元的默认比率.
+  cdt_usd_rate_default: 1.4271
+  # usd_cny_rate_default 美元对换人民币的默认比率.
+  usd_cny_rate_default: 6.5746
+  # cny_point_rate_default 人民币对换积分(point)的默认比率.
+  cny_point_rate_default: 50000
+  # limit_day_cdt 每天领取cdt上限, 这里为800是因为双旦活动奖励一直有效.
+  limit_day_cdt: 800.5198
+  # special_limit_day_cdt 特殊限制值, 保留下个版本再用.
+  # 这个限制值针对特殊的活动才有的，其它活动还是普通限制值.
+  special_limit_day_cdt: 0.2599
+
+  # 特殊消息类型，cdt的值根据不同类型需要调整倍数.
+  # 结构为数组类型，数组中的元素为hash, 字段定义如下:
+  # event_number: 消息类型编号, 在调用cdt的更新方法UpdateUserCdt时，就是参数"eventType".
+  # several_fold: cdt的值需倍数.
+  # limit_cdt:该消息类型一天领取cdt的上限值.
+  # start_time: 该类型有效开始时间, 该字段依赖于expire字段，如果expire字段的值为－1，表示无限制时间.
+  # end_time: 该类型有效结束时间, 该字段依赖于expire字段，如果expire字段的值为－1，表示无限制时间.
+  # expire: 是否有过期时间，如果为－1，表示无限制时间，如果为1，有效时间根据start_time和end_time字段限定.
+  event_type:
+    # 圣诞道具每天对换cdt值.
+    - { event_number: 401, several_fold: 1, limit_cdt: 200.00, start_time: 2021-02-14 00:00:00, end_time: 2021-01-20 00:00:00, expire: 1 }
+    # 每日排行榜奖励.
+    - { event_number: 425, several_fold: 1, limit_cdt: 800.5198, start_time: 2020-12-25 00:00:00, end_time: 2021-06-04 00:00:00, expire: 1 }
+    # 累计排行榜奖励.
+    - { event_number: 427, several_fold: 1, limit_cdt: 800.5198, start_time: 2020-12-25 00:00:00, end_time: 2021-06-04 00:00:00, expire: 1 }
+    # 圣诞老人双倍cdt奖励.
+    - { event_number: 429, several_fold: 2, limit_cdt: 800.5198, start_time: 2020-01-04 00:00:00, end_time: 2021-02-04 00:00:00, expire: 1 }
+    # 欢乐宝箱
+    - { event_number: 459, several_fold: 1, limit_cdt: 2300.00, start_time: -1, end_time: -1, expire: -1 }
+    # 随机红包
+    - { event_number: 471, several_fold: 1, limit_cdt: 500.00, start_time: 2021-02-14 00:00:00, end_time: 2021-03-25 00:00:00, expire: 1 }
+
+# 统计数据
+statistical:
+  make_up_card: 3002 # 补签卡
+
+# 活动配置
+# 双旦活动
+doubleyear:
+  # trade_cdt_day_limit 圣诞道具每天对换cdt数量限制值.
+  trade_cdt_day_limit: 200.00
+  # prop_start_date 道具对换活动开始日期 (对换红包)
+  prop_start_date: 2021-02-14
+  # prop_end_date 道具对换活动结束日期
+  prop_end_date: 2021-02-19
+  # prop_start_time 道具对换活动开始时间
+  prop_start_time: 19:00:00
+  # prop_end_time 道具对换活动结束时间
+  prop_end_time: 23:00:00
+  # trade_cdt_day_top_limit 每日排行榜cdt奖励限制值.
+  trade_cdt_day_top_limit: 100.00
+  # trade_cdt_day_top_total_limit 总排行榜cdt奖励限制值.
+  trade_cdt_day_top_total_limit: 1000.00
+  # sweet_tree_cdt 圣诞糖果＋圣诞树对换cdt比率为0.1.
+  sweet_tree_cdt_rate: 0.1
+  # father_christmas_role_rate 圣诞老人角色对换cdt倍数.
+  father_christmas_role_rate: 2
+  #christmas_event_interval:  //圣诞物品产出频率（单位秒）
+  christmas_event_interval: 60
+  #christmas_unit_max_num:  //圣诞物品每种产出最大数量
+  christmas_unit_max_num: 50
+  #christmas_patch_trade_num:  //兑换圣诞老人所需的碎片数量
+  christmas_patch_trade_num: 1000
+  #santa_claus_exprite_time: // 圣诞老人解锁卡有效期30天, 过期时间
+  santa_claus_exprite_time: "2021-02-03 23:59:59"
+  #santa_claus_unlock_exprite_time: // 圣诞老人解锁卡,解锁之后，使用天数
+  santa_claus_unlock_effective_day: 3
+  # 圣诞老人卡片id
+  santa_claus_card_id: 2100
+  # 圣诞老人角色id
+  santa_claus_role_id: 100
+  #圣诞老人解锁卡发送邮件标题
+  santa_email_tile: "金童玉女人解锁卡"
+  #圣诞老人解锁卡发送邮件内容
+  santa_email_content: "恭喜获得金童玉女解锁卡。"
+  #圣诞老人解锁卡发送跑马灯
+  santa_broad_content: "恭喜%s集齐金童玉女碎片，活动过后即可使用金童玉女角色"
+
+# 商户配置
+merchant:
+ = # 测试环境
+  merchant_entering_url: "http://127.0.0.1/h5/#/settlements/list"  # 商户入驻url
+  activity_promotion_url: "http://127.0.0.1/h5/#/extensionCode " # 活动推广
+
+# url 配置
+configure_url:
+   # 测试
+  merchantEnteringUrl: "http://127.0.0.1/h5/#/settlements/list"  # 商户入驻url
+  activityPromotionUrl: "http://127.0.0.1h5/#/extensionCode " # 活动推广
+  aggregatePay: "http://127.0.0.1/h5/#/shared" # 聚合支付
+  inviteLink: "https://127.0.0.1/web-advers/index.html" # 会员之家个人信息 邀请链接
+  assetsList: "https://127.0.0.1/h5/#/"
+  echainLink: "https://127.0.0.1/h5/home/home.html"
+  echainLinkH5: "https://127.0.0.1/"
+  ariesLink: "https://127.0.0.1/m/"
+  deFiLink: "https://127.0.0.1/"
+  localLife: "https://127.0.0.1/lifeH5/#/Home"  # 本地生活
+  springInvitationUrl: "http://127.0.0.1:82/register" # 活动邀请
+
+  # 邮箱配置
+email:
+  email_expire_day: 30  # 邮箱过期的天数
+
+# 活动角色
+# 结构为数组类型，数组中的元素为hash, 字段定义如下:
+# role_id: 角色id
+# role_card_id: 角色卡ID
+# role_start_time: 角色卡使用的开始时间.
+# role_end_time: 角色卡使用结束时间
+# usage_days: 使用天数
+# reset_role_id 复原角色ID
+activity_roles:
+  - { role_id: 101, role_card_id: 2101, role_start_time: "2021-02-19 00:00:00", role_end_time: "2021-03-21 00:00:00", usage_days: 3 ,reset_role_id: 27 }
+  - { role_id: 102, role_card_id: 2102, role_start_time: "2021-02-19 00:00:00", role_end_time: "2021-03-21 00:00:00", usage_days: 3 ,reset_role_id: 28 }
+
+# 春节活动
+springfestival:
+  # 金童玉女角色ID
+  golden_couple_role: [ 101,102 ]
+  # 排行榜开启时间
+  ranking_list_start_date: "2021-02-09"
+  # 排行榜结束时间
+  ranking_list_end_date: "2021-02-19"
+  # 活动开始时间
+  activity_start_datetime: "2021-02-09 00:00:00"
+  # 活动结束时间
+  activity_end_datetime: "2021-02-19 23:00:00"
+
+#管理后台
+admin:
+  http_port: 7000
+  oss:
+    AccessKeyId: "12345678"
+    AccessKeySecret: "12345678"
+    Region: "oss-cn"
+    Bucket: "admin-client"
+    Endpoint: "oss-cn"
+    Domain: "https://127.0.0.1"
+    Path: "notice/common"

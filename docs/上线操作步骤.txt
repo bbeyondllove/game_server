@@ -1,0 +1,18 @@
+1.config.yml修改以下配置
+
+doubleyear:
+  # prop_end_date 道具对换活动结束日期
+  prop_end_date: 2021-02-19
+
+event_type:
+    # 圣诞道具每天对换cdt值.
+    - { event_number: 401, several_fold: 1, limit_cdt: 200.00, start_time: 2021-02-14 00:00:00, end_time: 2021-02-20 00:00:00, expire: 1 }
+
+# 春节活动
+springfestival:
+  # 活动结束时间
+  activity_end_datetime: "2021-02-19 23:00:00"
+
+2.base.json用git上面的文件替换整个文件。
+3.编译程序game_server，用新程序替换旧程序。
+

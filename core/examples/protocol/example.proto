@@ -1,0 +1,48 @@
+syntax = "proto3";  //指定版本，必须要写（proto3、proto2）
+package protocol;
+option go_package = "protocol";
+
+// 定义路由 CMD 命令字
+enum Cmd {
+	CBeat      = 0;  // 客户端发送心跳
+	SBeat      = 1;  // 服务端心跳响应
+	CSecretKey = 2;  // 客户端请求秘钥
+	SSecretKey = 3;  // 服务端响应秘钥
+	CLogin     = 4;  // 客户端登录请求
+	SLogin     = 5;  // 服务端响应请求
+	CGetAmount = 6;
+	SGetAmount = 7;
+}
+
+// 服务端响应状态码
+enum Result {
+	Result_SUCC           = 0;
+	Result_FAIL           = 1;
+	Result_USER_NOT_EXIST = 2;
+	Result_PARAM_ERROR    = 3;
+	Result_DECRYPT_ERROR  = 4;
+}
+
+message ClientLogin{
+    string OpenId = 1;//用户系统生成的OpenID
+    string Token = 2;//用户系统生成的token
+    string DeviceId = 3;
+    string ChannelGroupId = 4;//渠道商ID
+    string ImeiIdfa = 5;       //IMEI或IDFA,安卓：IMEI / IOS:IDFA
+    int32  Platform= 6;     //android=1、ios=2
+}
+
+// 登陆响应结构
+message ServerLogin {
+    int32  Code = 1;//返回状态，0：成功，其他失败,需要跳转到登录界面
+    string Uid = 2;//对应的后端uid
+    string GameToken = 3;//游戏生成的token，用于断线重连使用
+}
+
+message CGetAmount{
+	string Uid = 1;
+}
+
+message SGetAmount{
+	string Uid = 1;
+}

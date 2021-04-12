@@ -1,0 +1,9 @@
+LogLevel:   "Info"
+WSAddr:     "0.0.0.0:8086"
+TCPAddr:    "0.0.0.0:8085"
+MaxConnNum:   100000
+HTTPTimeout:  10
+MaxMsgLen:    65535
+
+#http服务端口
+HTTPListen:   "0.0.0.0:8092"
